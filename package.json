@@ -1,0 +1,40 @@
+{
+	"name": "ponzio-the-cat-contracts",
+	"version": "0.1.0",
+	"description": "Ponzio The Cat token and staking contracts",
+	"author": {
+		"name": "Ponzio The Cat DEGENS"
+	},
+	"license": "BUSL-1.1",
+	"private": true,
+	"scripts": {
+		"prepare": "husky install",
+		"snapshot": "FOUNDRY_PROFILE=ci forge snapshot",
+		"snapshot:check": "FOUNDRY_PROFILE=ci forge snapshot --check",
+		"coverage": "FOUNDRY_PROFILE=ci forge coverage --report lcov",
+		"cov": "forge coverage",
+		"cov:html": "forge coverage --report lcov && genhtml -o .coverage lcov.info && open .coverage/index.html",
+		"test": "forge test -vv",
+		"quicktest": "forge test -vvv --no-match-test invariant",
+		"slither": "slither .",
+		"exportAbi": "forge build --ast && ts-node ./script/exportAbi.ts -g '{PonzioTheCat.sol,Router.sol,Stake.sol}' && tsup ./dist/abi/index.ts --format cjs --format esm --dts --sourcemap",
+		"clean": "rm -rf dist && rm -rf node_modules && rm -rf .coverage && rm -rf out && rm -rf lib && forge clean && npm i && forge install",
+		"deploy:fork": "forge script -f anvil script/Deploy.s.sol"
+	},
+	"files": [
+		"dist",
+		"broadcast"
+	],
+	"devDependencies": {
+		"@defi-wonderland/natspec-smells": "^1.1.1",
+		"@openzeppelin/contracts": "^5.0.0",
+		"abitype": "^1.0.1",
+		"commander": "^11.1.0",
+		"glob": "^10.3.10",
+		"husky": "^8.0.3",
+		"ts-node": "^10.9.2",
+		"tsup": "^8.0.2",
+		"typescript": "^5.3.3",
+		"viem": "^2.7.19"
+	}
+}

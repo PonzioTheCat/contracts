@@ -1,0 +1,22 @@
+[profile.default]
+optimizer = true
+optimizer_runs = 999_999
+auto_detect_solc = false
+solc_version = "0.8.25"
+libs = ["node_modules", "lib"]
+invariant = { fail_on_revert = true }
+
+remappings = ["@openzeppelin/=node_modules/@openzeppelin/"]
+
+[profile.default.fmt]
+line_length = 120
+bracket_spacing = true
+wrap_comments = true
+number_underscore = "thousands"
+
+[rpc_endpoints]
+mainnet = "${MAINNET_RPC_URL}"
+anvil = "${ANVIL_RPC_URL}"
+
+[etherscan]
+mainnet = { key = "${ETHERSCAN_API_KEY}" }
