@@ -19,8 +19,8 @@ import { IERC20Permit } from "@openzeppelin/contracts/token/ERC20/extensions/ERC
  * @title PonzioTheCat
  * @notice Implementation of the PONZIO token.
  * @dev PONZIO is a rebasable token, which means that the total supply can be updated. Its particularity is that
- * every 4 weeks the supply is divided by 2, and in between the supply is constantly decreasing linearly. The balances
- * stays fixed for 4 hours. Then every 4 hours, the supply is updated, and the balances are updated
+ * every 4 days the supply is divided by 2, and in between the supply is constantly decreasing linearly. The balances
+ * stays fixed for 34 minutes. Then every 34 minutes, the supply is updated, and the balances are updated
  * proportionally.
  * At each rebase, 13.37% of the debased supply is sent to the feesCollector.
  */
@@ -38,9 +38,10 @@ contract PonzioTheCat is IPonzioTheCat, ERC20Rebasable, Ownable {
 
     /// @inheritdoc IPonzioTheCat
     uint256 public constant INITIAL_SUPPLY = 21_000_000 * 10 ** DECIMALS; // in wei
-    uint256 public constant HALVING_EVERY = 4 weeks;
+    uint256 public constant HALVING_EVERY = 4 days + 144 seconds; // needs a factor of 168 between DEBASE_EVERY and
+        // HALVING_EVERY
     /// @inheritdoc IPonzioTheCat
-    uint256 public constant DEBASE_EVERY = 4 hours;
+    uint256 public constant DEBASE_EVERY = 34 minutes + 18 seconds;
     /// @inheritdoc IPonzioTheCat
     uint256 public constant NB_DEBASE_PER_HALVING = HALVING_EVERY / DEBASE_EVERY;
     /// @inheritdoc IPonzioTheCat
